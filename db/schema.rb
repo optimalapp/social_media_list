@@ -37,8 +37,9 @@ ActiveRecord::Schema.define(version: 2019_07_01_130826) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.datetime "date_posted"
+    t.text "text"
     t.string "link"
+    t.datetime "date_posted"
     t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

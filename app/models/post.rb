@@ -2,23 +2,25 @@ class Post < ApplicationRecord
   belongs_to :account
 
   def self.all_posts
-    posts = Post.all
+    posts = Post.all.sort_by &:date_posted
     return_array(posts)
   end
 
   def self.get_posts_by_list(list_name)
     users = List.find_by(name: list_name).users
-    posts = users.map { |user| user.accounts.map { |account| account.posts } }.flatten
+    posts = users.map { |user| user.accounts.map { |account| account.posts } }.flatten.sort_by &:date_posted
     return_array(posts)
   end
 
   def self.get_posts_by_dates(start_date, end_date)
-    posts = Post.where(date_posted: start_date..end_date)
+    start_date = Time.parse(start_date)
+    end_date = Time.parse(end_date)
+    posts = Post.where("date_posted BETWEEN ? AND ?", start_date, end_date).sort_by &:date_posted
     return_array(posts)
   end
 
   def self.get_posts_by_network(network_name)
-    posts = Account.all.map { |a| a.social_network == network_name ? a.posts : nil }.flatten.compact
+    posts = Account.all.map { |a| a.social_network == network_name ? a.posts : nil }.flatten.compact.sort_by &:date_posted
     return_array(posts)
   end
 

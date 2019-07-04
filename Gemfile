@@ -10,8 +10,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'jquery-ui-rails'
-
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
+gem 'jquery-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 #group :development, :test do
 ## Call 'byebug' anywhere in the code to stop execution and get a debugger console
 #gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

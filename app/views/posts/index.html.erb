@@ -51,12 +51,12 @@
       </div>
       <%= form_tag text_search_path, method: :post do %>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-4" style='padding-right:0px;'>
             <div class="form-group">
               <%= text_field_tag :text_query, '', class: "form-control" %>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2" style="padding-left:0px">
             <%= submit_tag("Search text", id: "button", class: "btn btn-primary", name: "submit") %>
           </div>
         </div>

@@ -1,8 +1,8 @@
 class Post < ApplicationRecord
   after_create :set_user_id
+  belongs_to :account
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
-  belongs_to :account
 
   def self.all_posts
     posts = self.search({ "size": 10000,
@@ -34,14 +34,14 @@ class Post < ApplicationRecord
     posts = self.search({ "size": 10000,
                          "query": {
       "range": {
-        "created_at": {
+        "date_posted": {
           "gte": start_date,
           "lte": end_date,
           "boost": 2.0,
         },
       },
     } })
-    return_posts_array(posts)
+    return_posts_array(posts).sort_by { |h| h[:zip] }
   end
 
   def self.get_posts_by_network(network_name)
@@ -120,21 +120,6 @@ class Post < ApplicationRecord
         "term": { "id": id },
       },
     })
-  end
-
-  def self.return_array(posts)
-    posts_array = []
-    posts.each do |post|
-      post_hash = {}
-      post_hash[:date_posted] = post.date_posted
-      post_hash[:social_network] = post.account.social_network
-      post_hash[:link] = post.link
-      post_hash[:name] = post.account.user.name
-      post_hash[:list] = post.account.user.lists.map { |l| l.name }.join(", ")
-      post_hash[:text] = post.text
-      posts_array << post_hash
-    end
-    return posts_array
   end
 
   def set_user_id

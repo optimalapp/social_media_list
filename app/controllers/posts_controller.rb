@@ -14,7 +14,12 @@ class PostsController < ApplicationController
   end
 
   def date_range_sort
-    @posts = Post.get_posts_by_dates(date_params[:start_date], date_params[:end_date])
+    @posts = Post.get_posts_by_dates(param_set[:start_date], param_set[:end_date])
+    render "index"
+  end
+
+  def text_search
+    @posts = Post.get_posts_by_text(param_set[:text_query])
     render "index"
   end
 
@@ -24,7 +29,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:selection_name)[:selection_name]
   end
 
-  def date_params
-    params.permit(:start_date, :end_date)
+  def param_set
+    params.permit(:start_date, :end_date, :text_query)
   end
 end

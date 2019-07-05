@@ -49,6 +49,18 @@
           </div>
         <% end %>
       </div>
+      <%= form_tag text_search_path, method: :post do %>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <%= text_field_tag :text_query, '', class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <%= submit_tag("Search text", id: "button", class: "btn btn-primary", name: "submit") %>
+          </div>
+        </div>
+      <% end %>
       <table class="table">
         <thead>
           <tr>
@@ -63,7 +75,7 @@
         <tbody>
           <% @posts.each do |post| %>
             <tr>
-              <td><%= post[:date_posted].strftime("%Y-%m-%d %H:%M")%></td>
+              <td><%= post[:date_posted]%></td>
               <td><%= post[:social_network] %></td>
               <td><%= post[:link] %></td>
               <td><%= post[:name] %></td>

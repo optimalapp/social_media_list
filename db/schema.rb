@@ -24,12 +24,13 @@ ActiveRecord::Schema.define(version: 2019_07_01_130826) do
   end
 
   create_table "lists", force: :cascade do |t|
+    t.string "usr_ids", default: "/"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "lists_users", id: false, force: :cascade do |t|
+  create_table "lists_users", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "list_id"
     t.index ["list_id"], name: "index_lists_users_on_list_id"

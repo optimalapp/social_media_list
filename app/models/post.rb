@@ -20,8 +20,7 @@ class Post < ApplicationRecord
     lists.each do |list|
       user_ids = list.usr_ids.scan(/\d+/).map(&:to_i)
       user_ids.each do |id|
-        user = get_user(id).first
-        accounts = get_user_account(user.id.to_i)
+        accounts = get_user_account(id)
         accounts.each { |account| get_posts(account.id.to_i).each { |p| posts << p } }
       end
     end
